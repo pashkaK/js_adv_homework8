@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>localStorage</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var loginKey = 'login';
+
+		function userInput(argument) {
+			var login = prompt('Введите Ваш логин');
+			if (login == 'admin' || login == 'Admin') {
+				window.localStorage.setItem(loginKey, login);
+                showProfile();
+			} else {
+				userInput();
+			}
+		}
+		userInput();
+		
+        function showProfile() {
+            var user = window.localStorage.getItem(loginKey);
+            var body = document.documentElement;
+            body.style.paddingLeft = "10px"
+            body.insertAdjacentHTML('afterbegin', '<p>Пользователь ' + user + ' вошел в систему');
+            body.insertAdjacentHTML('beforeend', '<button id="btn">Выйти</button>');
+            var btn = document.querySelector("#btn");
+            btn.addEventListener("click", logOut);
+            function logOut() {
+                window.localStorage.removeItem(loginKey);
+                location.reload()
+            }
+        }
+	</script>
+</body>
+</html>
